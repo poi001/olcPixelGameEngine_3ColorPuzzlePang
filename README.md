@@ -215,3 +215,24 @@ while (!mIntStack.empty())
 }
 ```
 
+mIntStack에 원소가 하나도 없을 때까지 반복하는 반복문 while을 선언합니다.
+
+그리고 mIntStack에 맨 위에 있는 원소를 tRow에 그 다음 원소를 tCol에 넣습니다. (Stack이기 때문에 아까 넣었을 때와 반대로 tRow를 먼저 꺼내야 합니다.)
+
+tRow와 tCol이 0보다 작거나 4보다 크면 반복문을 다시 시작합니다. 5x5 배열이기 때문에 행과 열이 0미만 4초과이면 안되기 떄문입니다.
+
+mBoardAttrib[tRow][tCol]에 있는 색과 매개변수tColorIndex의 색이 같지 않으면 반복문을 다시 시작합니다.
+
+tCheckVisit[tRow][tCol]에 있는 원소가 1이면 다시 시작합니다. 이미 방문했다는 뜻이기 떄문입니다.
+
+위에 모든 조건을 만족하지 않는다면 방문 기록용 배열인 tCheckVisit[tRow][tCol]에 1을 삽입하고 tCount를 +1 합니다.(tCount는 같은 색이 몇 개가 붙어 있는지 확인용 변수)
+
+그리고 현재 위치에서 상하좌우의 위치들을 mIntStack에 넣고 while문을 다시 실행합니다.
+
+
+
+지금까지 DoCheckBlockAttrib함수의 정의였고 이제 OnUserUpdate(언리얼로 치면 Tick함수)에서 DoCheckBlockAttrib를 이용하여 인접해 있는 같은 색 공이 3개 이상이면 모두 터뜨리고 다른 색 공을 랜덤하게 채워주는 코드에 대해서 설명하겠습니다.
+
+```
+
+```
