@@ -10,8 +10,115 @@ https://youtube.com/shorts/mn4AN7mKGrI?feature=share
 ## 게임 알고리즘
 이 게임 기반은 FloodFill알고리즘을 사용했다
 
-
-
+```
+unsigned int mBoardAttrib[5][5] =
+	{
+		5, 5, 1, 1, 3,
+		5, 2, 2, 2, 3,
+		5, 4, 2, 3, 2,
+		4, 4, 2, 3, 2,
+		4, 1, 1, 3, 3
+	};
 ```
 
+화면에 표시되는 게임보드 5by5 배열
+
 ```
+unsigned int tCheckVisit[5][5] =
+	{
+		0,0,0,0,0,
+		0,0,0,0,0,
+		0,0,0,0,0,
+		0,0,0,0,0,
+		0,0,0,0,0
+	};
+```
+
+방문 검사 기록용 데이터 5by5 배열
+
+```
+int Example::DoCheckBlockAttrib(int tCol, int tRow, int tColorIndex)
+{
+	int tCount = 0;
+
+	//clear tCheckVisit
+	for (int tRow = 0; tRow < 5; ++tRow)
+	{
+		for (int tCol = 0; tCol < 5; ++tCol)
+		{
+			tCheckVisit[tRow][tCol] = 0;
+		}
+	}
+
+	//clear stack
+	while (!mIntStack.empty())
+	{
+		mIntStack.pop();
+	}
+
+	//flood fill
+	mIntStack.push(tCol);
+	mIntStack.push(tRow);
+
+	//스택에 원소(셀의 위치값)가 하나라도 있다면
+	while (!mIntStack.empty())
+	{
+		//스택에 원소를 하나 끄집어내서 
+		tRow = mIntStack.top();
+		mIntStack.pop();
+		tCol = mIntStack.top();
+		mIntStack.pop();
+
+		//경계처리
+		if (tRow < 0 || tRow > 4)
+		{
+			continue;
+		}
+		//경계처리
+		if (tCol < 0 || tCol > 4)
+		{
+			continue;
+		}
+		//색상블럭의 값이 현재 찾으려는 색상이 아니라면 
+		if (tColorIndex != mBoardAttrib[tRow][tCol])
+		{
+			continue;
+		}
+
+
+
+		if (1 == tCheckVisit[tRow][tCol])
+		{
+			continue;
+		}
+
+		cout << "remember block: " << tRow << ", " << tCol << endl;
+
+		//체크한다( 기록해둔다 )
+		tCheckVisit[tRow][tCol] = 1;
+
+		//( 찾으려는 색상의 )연속적으로 연결된 블럭이 몇개인지 카운트한다 
+		tCount++;
+
+
+
+
+
+		//사방의 위치 정보를 스택자료구조에 담는다
+		mIntStack.push(tCol - 1);
+		mIntStack.push(tRow);
+
+		mIntStack.push(tCol + 1);
+		mIntStack.push(tRow);
+
+		mIntStack.push(tCol);
+		mIntStack.push(tRow - 1);
+
+		mIntStack.push(tCol);
+		mIntStack.push(tRow + 1);
+	}
+
+	return tCount;
+}
+```
+
