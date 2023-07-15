@@ -122,3 +122,23 @@ int Example::DoCheckBlockAttrib(int tCol, int tRow, int tColorIndex)
 }
 ```
 
+위 코드는 스페이스 바를 누르면 호출되는 리턴형이 int형인 DoCheckBlockAttrib 함수입니다.
+
+첫 번째 매개변수 tCol는 현재 플레이어의 위치의 열(세로)
+
+두 번째 매개변수 tRow는 현재 플레이어의 위치의 행(가로)인 매개변수입니다.
+
+마지막 세 번쨰 매개변수 tColorIndex는 현재 플레이어의 위치의 색깔 정보인 매개변수입니다. (0 = 빈 공간, 1 = 백, 2 = 적, 3 = 녹, 4 = 청, 5 = 황)
+
+위 함수를 아래로 내려가면서 차례로 설명하겠습니다.
+
+```
+for (int tRow = 0; tRow < 5; ++tRow)
+{
+	for (int tCol = 0; tCol < 5; ++tCol)
+	{
+		tCheckVisit[tRow][tCol] = 0;
+	}
+}
+```
+
