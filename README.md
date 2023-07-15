@@ -229,10 +229,54 @@ tCheckVisit[tRow][tCol]에 있는 원소가 1이면 다시 시작합니다. 이�
 
 그리고 현재 위치에서 상하좌우의 위치들을 mIntStack에 넣고 while문을 다시 실행합니다.
 
-
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 지금까지 DoCheckBlockAttrib함수의 정의였고 이제 OnUserUpdate(언리얼로 치면 Tick함수)에서 DoCheckBlockAttrib를 이용하여 인접해 있는 같은 색 공이 3개 이상이면 모두 터뜨리고 다른 색 공을 랜덤하게 채워주는 코드에 대해서 설명하겠습니다.
 
 ```
+if (GetKey(olc::Key::SPACE).bReleased)
+{
+	int tColorIndex = mBoardAttrib[mCurY][mCurX];
+	int tCount = 0;
 
+	tCount = DoCheckBlockAttrib(mCurX, mCurY, tColorIndex);
+
+	//연속된 색상의 블럭이 3개 이상이면 
+	if (tCount >= 3)
+	{
+		//체크된 위치의 색상블럭들을 제거한다 
+		for (int tRow = 0; tRow < 5; ++tRow)
+		{
+			for (int tCol = 0; tCol < 5; ++tCol)
+			{
+				if (1 == tCheckVisit[tRow][tCol])
+				{
+					mBoardAttrib[tRow][tCol] = 0;
+				}
+			}
+		}
+
+		//비워진 곳에 새로운 색상 블럭을 랜덤한 색상으로 생성한다 
+		for (int tRow = 0; tRow < 5; ++tRow)
+		{
+			for (int tCol = 0; tCol < 5; ++tCol)
+			{
+				if (0 == mBoardAttrib[tRow][tCol])
+				{
+					int tRandAttrib = rand() % 5 + 1;
+					mBoardAttrib[tRow][tCol] = tRandAttrib;
+				}
+			}
+		}
+	}
+}
 ```
+
+tCount에 DoCheckBlockAttrib함수의 리턴을 받아 넣습니다.
+
+tCount이 3이상이면 방문 기록용 배열을 for문을 이용해 1인 위치를 찾아내 게임보드 배열에서 같은 위치인 곳을 0(빈 공간)으로 설정해놓습니다.
+
+그리고 게임보드 배열을 for문을 이용해 원소가 0인 곳에 rand을 이용하여 랜덤한 색상의 공으로 채워놓습니다.
+
+## 마무리
+FloodFill알고리즘을 이용한 퍼즐게임에 대한 설명을 마치겠습니다.
