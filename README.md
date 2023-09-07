@@ -4,7 +4,7 @@
 ## Preview
 ![ezgif com-video-to-gif](https://github.com/poi001/olcPixelGameEngine_3ColorPuzzlePang/assets/107660181/42b53f70-0027-4450-bbde-ce3235de601b)
 
-## YoutubeLink ( 사진을 누르면 유튜브로 넘어갑니다 )
+## YoutubeLink
 https://youtube.com/shorts/mn4AN7mKGrI?feature=share
 
 ## 게임 알고리즘
